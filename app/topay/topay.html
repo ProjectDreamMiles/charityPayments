@@ -1,0 +1,17 @@
+<md-toolbar style="background-color: #efefef; color: #000000;">
+    <h1 class="md-toolbar-tools" style="text-align: center;">Unpaid Charities</h1>
+</md-toolbar>
+
+<md-list>
+    <md-subheader class="md-no-sticky">
+        Check box and saves changes once check is sent
+        <md-button class="md-secondary" style="background-color: #00b9be; color: #ffffff;">
+            Save Changes
+        </md-button>
+    </md-subheader>
+
+    <md-list-item ng-repeat="charity in charities">
+        <p> {{charity}} </p>
+        <md-checkbox class="md-secondary"></md-checkbox>
+    </md-list-item>
+</md-list>
