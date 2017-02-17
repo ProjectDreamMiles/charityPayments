@@ -1,16 +1,42 @@
-'use strict';
+
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', [
+angular.module('checkProcessing', [
   'ngRoute',
-  'myApp.topay',
-  'myApp.paymenthistory',
-  'myApp.version',
+  'checkProcessing.topay',
+  'checkProcessing.paymenthistory',
+    'checkProcessing.tpService',
+    'checkProcessing.phServices',
   'ngMaterial',
   'ngAria',
-  'ngAnimate'
-]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+  'ngAnimate',
+    'ui.router',
+    'ngAria',
+    'ngCookies'
+])
+
+.constant('SERVER_HOST', 'http://192.168.0.12:5000/')
+
+    .constant('CLIENT_HOST','http://localhost:8000/')
+    .config(['$httpProvider', function($httpProvider) {
+        $httpProvider.interceptors.push(['$window', function($window) {
+            return {
+                'request': function(config) {
+                    config.headers.authorization = $window.localStorage.token;
+                    return config;
+                }
+            };
+        }]);
+    }])
+    .config(['$sceDelegateProvider', function($sceDelegateProvider){
+        $sceDelegateProvider.resourceUrlWhitelist([
+            // Allow same origin resource loads.
+            'self',
+            // Allow loading from our assets domain.  Notice the difference between * and **.
+            'https://google.drive.com/file/**'
+        ]);
+    }])
+.config(function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 
   $routeProvider
@@ -22,21 +48,37 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
       //   templateUrl : "paymenthistory/paymenthistory.html",
       //   controller: "PaymentHistoryCtrl"
       // })
-      .otherwise("/topay")
-}])
+      .otherwise("#!/topay")
+})
+// .config(function($stateProvider, $urlRouterProvider) {
+//     $stateProvider
+//         .state('pay', {
+//             url:'/toPay',
+//             templateUrl: 'topay/topay.html',
+//             controller: 'ToPayCtrl'
+//
+//         })
+//
+//         .state('app.accountInfo', {
+//             url: '/accountInfo',
+//             views: {
+//                 'app-account': {
+//                     templateUrl: 'templates/accountInfo.html',
+//                     controller: 'AccountCtrl'
+//                 }
+//             }
+//         })
+// })
 
-.controller('NavCtrl', ['$scope', '$window', function($scope, $window) {
+.controller('NavCtrl', function($scope, $window) {
 
   $scope.goToToPay = function () {
-    $window.location.href = "#!/topay";
-  };
-
-  $scope.goToToPay = function () {
-    $window.location.href = "#!/topay";
+    $window.location.href = "#/topay";
   };
 
   $scope.goToPaymentHistory = function () {
-    $window.location.href = "#!/paymenthistory";
+    $window.location.href = "#/paymenthistory";
   };
 
-}]);
+
+});

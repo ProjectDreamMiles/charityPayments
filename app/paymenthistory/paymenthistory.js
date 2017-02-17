@@ -1,14 +1,27 @@
-'use strict';
 
-angular.module('myApp.paymenthistory', ['ngRoute'])
+
+angular.module('checkProcessing.paymenthistory', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
+    "ngInject";
   $routeProvider.when('/paymenthistory', {
     templateUrl: 'paymenthistory/paymenthistory.html',
     controller: 'PaymentHistoryCtrl'
   });
 }])
 
-.controller('PaymentHistoryCtrl', [function() {
+.controller('PaymentHistoryCtrl', function(PHAPI) {
 
-}]);
+  var paidChecks = [];
+    var test = {};
+
+  PHAPI.getPaidChecks()
+      .then(function successCallback(response){
+          console.log('getPaidChecks success cb- result: ' + JSON.stringify(response));
+          paidChecks = response.data;
+      }, function errorCallback(response){
+          console.log('getPaidChecks err cb- result: ' + JSON.stringify(response));
+
+      })
+
+});
