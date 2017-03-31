@@ -9,9 +9,9 @@ angular.module('checkPayment.topay', ['ngRoute'])
   });
 }])
 
-.controller('ToPayCtrl', ['$scope', 'CheckAPI', function($scope, CheckAPI) {
+.controller('ToPayCtrl', ['$scope', 'CheckAPI', '$window', function($scope, CheckAPI, $window) {
 
-  $scope.selectedChecks = []
+  $scope.selectedChecks = [];
 
   // Just testing to see if shit works
     $scope.test = 'test';
@@ -30,15 +30,24 @@ angular.module('checkPayment.topay', ['ngRoute'])
     for(i=0; i<$scope.checks.length; i++){
       if($scope.checks[i].selected){
         $scope.selectedChecks.push($scope.checks[i]);
-        console.log($scope.selectedChecks);
 
         $scope.checks[i].selected = false;
       }
     }
 
-    //TODO: Set checks as paid
-    //TODO: Refresh list of paid checks by calling CheckAPI.getUnPaidChecks()
-    $scope.selectedChecks = []
+    CheckAPI.setCheckPaid($scope.selectedChecks).then(function(res){
+      console.log('setCheckPaid succeeded: ', res);
+
+      // Clear selected Checks Array
+      $scope.selectedChecks = [];
+      // Refresh page to refresh checks object
+      $window.location.reload()
+
+    }, function(err){
+      console.log('setCheckPaidFailed', err);
+      $scope.selectedChecks = [];
+      $window.location.reload()
+    })
 
   }
 

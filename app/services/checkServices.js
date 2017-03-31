@@ -19,8 +19,8 @@ angular.module('checkPayment.checkServices', [])
 						return $http.post(SERVER_HOST + 'updateChecks', checks, {
 								method:'POST',
 								params: {
-										userId: 'DreamRunTeam',
-										userEmail: 'yesh@projectdreammiles.com'
+										userId: '8177fcf34ec9b03009f85f4',
+										email: 'ychillakuru@gmail.com'
 								}
 						})
 				}
