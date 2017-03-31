@@ -22,7 +22,7 @@ angular.module('checkPayment.topay', ['ngRoute'])
 
   CheckAPI.getUnpaidChecks().then(function(res){
     $scope.checks = res.data;
-    console.log('getUnpaidChecks scs: ' + JSON.stringify(res));
+    // console.log('getUnpaidChecks scs: ' + JSON.stringify(res));
   }, function(err){
     console.log('error:', err)
   });
@@ -44,12 +44,18 @@ angular.module('checkPayment.topay', ['ngRoute'])
       // Clear selected Checks Array
       $scope.selectedChecks = [];
       // Refresh page to refresh checks object
-      $window.location.reload()
+      // $window.location.reload()
+      CheckAPI.getUnpaidChecks().then(function(res){
+        $scope.checks = res.data;
+        // console.log('getUnpaidChecks scs: ' + JSON.stringify(res));
+      }, function(err){
+        console.log('error:', err)
+      });
 
     }, function(err){
       console.log('setCheckPaidFailed', err);
-      $scope.selectedChecks = [];
-      $window.location.reload()
+      // $scope.selectedChecks = [];
+      // $window.location.reload()
     })
 
   }

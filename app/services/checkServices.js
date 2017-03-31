@@ -9,7 +9,7 @@ angular.module('checkPayment.checkServices', [])
 
 		$rootScope.signIn = function(form){
 			return $http.post(SERVER_HOST+'authentication/signin', form).then(function(scs){
-				console.log('sign scs: scs: ' + JSON.stringify(scs.data.token));
+				// console.log('sign scs: scs: ' + JSON.stringify(scs.data.token));
 				$window.localStorage.token = scs.data.token;
 				$rootScope.user = scs.data.user;
 			}, function(err){
