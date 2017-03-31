@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.paymenthistory', ['ngRoute'])
+angular.module('checkPayment.paymenthistory', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/paymenthistory', {

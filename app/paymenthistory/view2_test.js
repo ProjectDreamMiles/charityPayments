@@ -1,8 +1,8 @@
 'use strict';
 
-describe('myApp.paymenthistory module', function() {
+describe('checkPayment.paymenthistory module', function() {
 
-  beforeEach(module('myApp.paymenthistory'));
+  beforeEach(module('checkPayment.paymenthistory'));
 
   describe('paymenthistory controller', function(){
 
