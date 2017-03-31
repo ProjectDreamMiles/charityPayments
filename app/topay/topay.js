@@ -1,4 +1,4 @@
-'use strict';
+
 
 angular.module('checkPayment.topay', ['ngRoute'])
 
@@ -9,7 +9,7 @@ angular.module('checkPayment.topay', ['ngRoute'])
   });
 }])
 
-.controller('ToPayCtrl', ['$scope', 'CheckAPI', '$window', function($scope, CheckAPI, $window) {
+.controller('ToPayCtrl', function($scope, CheckAPI, $window, $rootScope) {
 
   $scope.selectedChecks = [];
 
@@ -18,8 +18,11 @@ angular.module('checkPayment.topay', ['ngRoute'])
     $scope.charities = CheckAPI.test();
     // $scope.charities = ['charity 1', 'charity 2', 'charity 3'];
 
+    $rootScope.signIn({email: 'ychillakuru@gmail.com', password: 'yc'});
+
   CheckAPI.getUnpaidChecks().then(function(res){
     $scope.checks = res.data;
+    console.log('getUnpaidChecks scs: ' + JSON.stringify(res));
   }, function(err){
     console.log('error:', err)
   });
@@ -51,4 +54,4 @@ angular.module('checkPayment.topay', ['ngRoute'])
 
   }
 
-}]);
+});

@@ -4,7 +4,18 @@
 angular.module('checkPayment.checkServices', [])
 
 
-.factory('CheckAPI', ['SERVER_HOST', '$http', function(SERVER_HOST, $http){
+.factory('CheckAPI',  function(SERVER_HOST, $http, $rootScope, $window){
+		$rootScope.user = {};
+
+		$rootScope.signIn = function(form){
+			return $http.post(SERVER_HOST+'authentication/signin', form).then(function(scs){
+				console.log('sign scs: scs: ' + JSON.stringify(scs.data.token));
+				$window.localStorage.token = scs.data.token;
+				$rootScope.user = scs.data.user;
+			}, function(err){
+                console.log('sign err: err: ' + JSON.stringify(err));
+			});
+		};
 
 		return {
 				test: function(){
@@ -19,11 +30,11 @@ angular.module('checkPayment.checkServices', [])
 						return $http.post(SERVER_HOST + 'updateChecks', checks, {
 								method:'POST',
 								params: {
-										userId: '8177fcf34ec9b03009f85f4',
-										email: 'ychillakuru@gmail.com'
+										userId:$rootScope.user._id,
+										email: $rootScope.user.email
 								}
 						})
 				}
 		}
 
-}]);
+});

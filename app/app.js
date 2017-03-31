@@ -22,6 +22,17 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 // .constant('SERVER_HOST','https://dreamrundevelopmenttest.herokuapp.com/')
 .constant('SERVER_HOST','http://localhost:5000/')
 
+  .config(['$httpProvider', function($httpProvider) {
+      $httpProvider.interceptors.push(['$window', function($window) {
+          return {
+              'request': function(config) {
+                  config.headers.authorization = $window.localStorage.token;
+                  return config;
+              }
+          };
+      }]);
+  }])
+
 .controller('NavCtrl', ['$scope', '$window', function($scope, $window) {
 
   $scope.goToToPay = function () {
