@@ -18,9 +18,12 @@ angular.module('checkPayment.topay', ['ngRoute'])
     $scope.charities = CheckAPI.test();
     // $scope.charities = ['charity 1', 'charity 2', 'charity 3'];
 
-  CheckAPI.getUnpaidChecks().then(function(data, status){
-    $scope.checks = data.data;
-  })
+  CheckAPI.getUnpaidChecks().then(function(res){
+    $scope.checks = res.data;
+  }, function(err){
+    console.log('error:', err)
+  });
+
 
   $scope.saveAsPaid = function(){
     var i;
@@ -29,12 +32,14 @@ angular.module('checkPayment.topay', ['ngRoute'])
         $scope.selectedChecks.push($scope.checks[i]);
         console.log($scope.selectedChecks);
 
-        //TODO: Set check as paid
-        //TODO: Refresh list of paid checks by calling CheckAPI.getUnPaidChecks()
-
         $scope.checks[i].selected = false;
       }
     }
+
+    //TODO: Set checks as paid
+    //TODO: Refresh list of paid checks by calling CheckAPI.getUnPaidChecks()
+    $scope.selectedChecks = []
+
   }
 
 }]);
