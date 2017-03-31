@@ -22,7 +22,6 @@ angular.module('checkPayment.topay', ['ngRoute'])
 
   CheckAPI.getUnpaidChecks().then(function(res){
     $scope.checks = res.data;
-    // console.log('getUnpaidChecks scs: ' + JSON.stringify(res));
   }, function(err){
     console.log('error:', err)
   });

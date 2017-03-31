@@ -9,18 +9,12 @@ angular.module('checkPayment.paymenthistory', ['ngRoute'])
   });
 }])
 
-.controller('PaymentHistoryCtrl', function() {
+.controller('PaymentHistoryCtrl', function($scope, CheckAPI) {
 
-  var paidChecks = [];
-    var test = {};
-
-  // PHAPI.getPaidChecks()
-  //     .then(function successCallback(response){
-  //         console.log('getPaidChecks success cb- result: ' + JSON.stringify(response));
-  //         paidChecks = response.data;
-  //     }, function errorCallback(response){
-  //         console.log('getPaidChecks err cb- result: ' + JSON.stringify(response));
-	//
-  //     })
+  CheckAPI.getPaidChecks().then(function(res){
+    $scope.checks = res.data;
+  }, function(err){
+    console.log('error:', err)
+  });
 
 });

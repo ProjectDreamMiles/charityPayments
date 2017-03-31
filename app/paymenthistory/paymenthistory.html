@@ -1,4 +1,17 @@
+<md-toolbar style="background-color: #efefef; color: #000000;">
+    <h1 class="md-toolbar-tools" style="text-align: center;">Paid Checks</h1>
+</md-toolbar>
 
-<md-content>
-    Test
-</md-content>
+<md-list>
+    <md-list-item ng-repeat="check in checks" style="padding-bottom: 2em;">
+        <p>
+            <span style="font-size: 1.2em; font-weight: 600;">[{{$index}}] {{check.charity_name}}</span><br>
+            &nbsp; &nbsp; <b>EIN: </b> {{check.charity_ein}} <br>
+            <span ng-show="{{check.charity_ico}}"> &nbsp; &nbsp; {{check.charity_ico}}<br></span>
+            &nbsp; &nbsp; {{check.charity_street}}<br>
+            &nbsp; &nbsp; {{check.charity_city}}, {{check.charity_state}} {{check.charity_zip_code}} <br>
+        </p>
+        <span style="font-size: 1.2em;">{{check.donorEmail}} &nbsp; &nbsp; </span>
+        <span style="font-size: 1.2em; font-weight: 600;">${{check.charity_amount - check.application_fee | number: 2}} &nbsp;</span>
+    </md-list-item>
+</md-list>

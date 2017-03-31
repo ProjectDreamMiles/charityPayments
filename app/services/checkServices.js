@@ -34,6 +34,11 @@ angular.module('checkPayment.checkServices', [])
 										email: $rootScope.user.email
 								}
 						})
+				},
+				getPaidChecks: function(){
+						return $http.get(SERVER_HOST + 'getPaidChecks', {
+								method: 'GET'
+						})
 				}
 		}
 
